@@ -14,9 +14,13 @@ def load_book(filename):
         return f.read()
 
 
+def tag_tokens(book):
+    """Tokenize and tag the book's text."""
+    return pos_tag(word_tokenize(book))
+
+
 # main loop
 if __name__ == "__main__":
-    book = load_book('Texts/FreeTexts/hamlet.txt')
-    tokens = word_tokenize(book)
-    tagged_tokens = pos_tag(tokens)
-    print(tagged_tokens)
+    # book = load_book('Texts/NonFreeTexts/InfiniteJest.txt')
+    book = load_book('Texts/FreeTexts/Hamlet.txt')
+    print(tag_tokens(book))
