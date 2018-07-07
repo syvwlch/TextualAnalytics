@@ -14,11 +14,6 @@ def load_book(filename):
         return f.read()
 
 
-def tag_tokens(book):
-    """Tokenize and tag the book."""
-    return pos_tag(word_tokenize(book))
-
-
 def unique_words_by_tag(tokens, tag_value):
     """Return a set of the words of the given tag value in the book."""
     nouns = []
@@ -32,6 +27,6 @@ def unique_words_by_tag(tokens, tag_value):
 if __name__ == "__main__":
     # book = load_book('Texts/NonFreeTexts/InfiniteJest.txt')
     book = load_book('Texts/FreeTexts/Hamlet.txt')
-    tokens = tag_tokens(book)
-    unique_nouns = unique_words_by_tag(tokens, 'NN')
+    tokens = pos_tag(word_tokenize(book))
+    unique_nouns = unique_words_by_tag(tokens, 'NNP')
     print(len(unique_nouns))
