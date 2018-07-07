@@ -5,7 +5,7 @@ Will load the text and then create a dictionary of words with the number of
 occurences in the text.
 """
 
-from nltk import word_tokenize
+from nltk import pos_tag, word_tokenize
 
 
 def load_book(filename):
@@ -14,11 +14,9 @@ def load_book(filename):
         return f.read()
 
 
-def tokenize_book(book):
-    """Tokenize a book using word_tokenize function from nltk."""
-    return word_tokenize(book)
-
-
 # main loop
 if __name__ == "__main__":
-    print(word_tokenize(load_book('Texts/FreeTexts/hamlet.txt')))
+    book = load_book('Texts/FreeTexts/hamlet.txt')
+    tokens = word_tokenize(book)
+    tagged_tokens = pos_tag(tokens)
+    print(tagged_tokens)
