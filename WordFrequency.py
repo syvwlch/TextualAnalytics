@@ -24,10 +24,23 @@ def unique_words_by_tag(tokens, tag_value='N/A'):
     return Counter(nouns)
 
 
+def adjective_noun_pairs(tokens):
+    """Return a counter of the adjective+noun pairs in the text."""
+    pairs = []
+    last_word = ''
+    last_tag = ''
+    for word, tag in tokens:
+        if last_tag == 'JJ' and tag == 'NN':
+            pairs.append(last_word.lower()+' '+word.lower())
+        last_word = word
+        last_tag = tag
+    return Counter(pairs)
+
+
 # main loop
 if __name__ == "__main__":
     # book = load_book('Texts/NonFreeTexts/InfiniteJest.txt')
     book = load_book('Texts/FreeTexts/Hamlet.txt')
     tokens = pos_tag(word_tokenize(book))
-    unique_words = unique_words_by_tag(tokens, 'NNP')
-    print(unique_words.most_common(20))
+    unique_pairs = adjective_noun_pairs(tokens)
+    print(unique_pairs.most_common(20))
