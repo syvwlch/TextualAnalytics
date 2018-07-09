@@ -37,10 +37,25 @@ def adjective_noun_pairs(tokens):
     return Counter(pairs)
 
 
+def adjectives_before(tokens, target_word):
+    """Return a counter of the adjectives which precede the target_word."""
+    adjectives = []
+    last_word = ''
+    last_tag = ''
+    target_word = target_word.lower()
+    for word, tag in tokens:
+        if word.lower() == target_word and last_tag == 'JJ':
+            adjectives.append(last_word.lower())
+        last_word = word
+        last_tag = tag
+    return Counter(adjectives)
+
+
 # main loop
 if __name__ == "__main__":
     # book = load_book('Texts/NonFreeTexts/InfiniteJest.txt')
     book = load_book('Texts/FreeTexts/Hamlet.txt')
     tokens = pos_tag(word_tokenize(book))
-    print(unique_words_by_tag(tokens, 'NN').most_common(20))
+    # print(unique_words_by_tag(tokens, 'NN').most_common(20))
     # print(adjective_noun_pairs(tokens).most_common(20))
+    print(adjectives_before(tokens, 'father').most_common(20))
