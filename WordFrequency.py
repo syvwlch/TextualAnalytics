@@ -20,7 +20,7 @@ def unique_words_by_tag(tokens, tag_value='N/A'):
     nouns = []
     for word, tag in tokens:
         if tag == tag_value or tag_value == 'N/A':
-            nouns.append(word)
+            nouns.append(word.lower())
     return Counter(nouns)
 
 
@@ -42,5 +42,5 @@ if __name__ == "__main__":
     # book = load_book('Texts/NonFreeTexts/InfiniteJest.txt')
     book = load_book('Texts/FreeTexts/Hamlet.txt')
     tokens = pos_tag(word_tokenize(book))
-    unique_pairs = adjective_noun_pairs(tokens)
-    print(unique_pairs.most_common(20))
+    print(unique_words_by_tag(tokens, 'NN').most_common(20))
+    # print(adjective_noun_pairs(tokens).most_common(20))
