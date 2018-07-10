@@ -1,4 +1,0 @@
-# run the following from the command line if you are getting nltk errors.
-
-python -m nltk.downloader 'punkt'
-python -m nltk.downloader 'averaged_perceptron_tagger'
