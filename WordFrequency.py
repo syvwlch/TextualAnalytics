@@ -85,18 +85,26 @@ def nouns_after(tokens, target_word):
 
 # main loop
 if __name__ == "__main__":
-    PATH = 'Texts/FreeTexts/'
-    FILENAME = 'Hamlet'
+    try:
+        tokens = unpickle_tokens('Texts/NonFreeTexts/InfiniteJest')
+    except FileNotFoundError:
+        tokens = unpickle_tokens('Texts/FreeTexts/Hamlet')
 
-    tokens = unpickle_tokens(PATH+FILENAME)
+    DEPTH = 5
+
+    frequent_adjectives = unique_words_by_tag(tokens, 'JJ').most_common(DEPTH)
+    frequent_nouns = unique_words_by_tag(tokens, 'NN').most_common(DEPTH)
+    frequent_noun_pairs = adjective_noun_pairs(tokens).most_common(DEPTH)
 
     print('Most frequent adjectives:')
-    print(unique_words_by_tag(tokens, 'JJ').most_common(5))
+    print(frequent_adjectives)
     print('Most frequent nouns:')
-    print(unique_words_by_tag(tokens, 'NN').most_common(5))
+    print(frequent_nouns)
     print('Most frequent adjective/noun pairs:')
-    print(adjective_noun_pairs(tokens).most_common(5))
-    print("Most frequent nouns after the adjective 'good':")
-    print(nouns_after(tokens, 'good').most_common(5))
-    print("Most frequent adjectives before the noun 'lord':")
-    print(adjectives_before(tokens, 'way').most_common(5))
+    print(frequent_noun_pairs)
+    print("Most frequent nouns after the adjective '"
+          + frequent_adjectives[0][0] + "':")
+    print(nouns_after(tokens, frequent_adjectives[0][0]).most_common(5))
+    print("Most frequent adjectives before the noun '"
+          + frequent_nouns[0][0] + "':")
+    print(adjectives_before(tokens, frequent_nouns[0][0]).most_common(5))
