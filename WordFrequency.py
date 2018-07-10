@@ -85,8 +85,8 @@ def nouns_after(tokens, target_word):
 
 # main loop
 if __name__ == "__main__":
-    PATH = 'Texts/NonFreeTexts/'
-    FILENAME = 'InfiniteJest'
+    PATH = 'Texts/FreeTexts/'
+    FILENAME = 'Hamlet'
 
     tokens = unpickle_tokens(PATH+FILENAME)
 
@@ -96,7 +96,7 @@ if __name__ == "__main__":
     print(unique_words_by_tag(tokens, 'NN').most_common(5))
     print('Most frequent adjective/noun pairs:')
     print(adjective_noun_pairs(tokens).most_common(5))
-    print("Most frequent nouns after the adjective 'little':")
-    print(nouns_after(tokens, 'little').most_common(5))
-    print("Most frequent adjectives before the noun 'way':")
+    print("Most frequent nouns after the adjective 'good':")
+    print(nouns_after(tokens, 'good').most_common(5))
+    print("Most frequent adjectives before the noun 'lord':")
     print(adjectives_before(tokens, 'way').most_common(5))
