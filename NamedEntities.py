@@ -30,7 +30,7 @@ def filter_names(names, target):
     """Filter out the names which do not contain the target name."""
     hits = []
     for name, count in names.most_common():
-        if target in name:
+        if target in name.split(' '):
             hits.append((name, count))
     return hits
 
@@ -43,4 +43,4 @@ if __name__ == "__main__":
         tokens = unpickle_tokens('Texts/FreeTexts/Hamlet')
 
     # print(count_names(tokens))
-    print(filter_names(count_names(tokens), 'Group'))
+    print(filter_names(count_names(tokens), 'Hal'))
