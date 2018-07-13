@@ -13,7 +13,7 @@ def unique_words_by_tag(tokens, tag_value='N/A'):
     """Return a counter of the tokens with the given tag value."""
     nouns = []
     for word, tag in tokens:
-        if tag == tag_value or tag_value == 'N/A':
+        if tag.startswith(tag_value) or tag_value == 'N/A':
             nouns.append(word.lower())
     return Counter(nouns)
 
@@ -85,4 +85,22 @@ if __name__ == "__main__":
     except FileNotFoundError:
         tokens = unpickle_tokens('Texts/FreeTexts/Hamlet')
 
-    frequent_nouns_and_adjectives(tokens)
+    adjectives = unique_words_by_tag(tokens, 'JJ')
+    nouns = unique_words_by_tag(tokens, 'NN')
+    pairs = adjective_noun_pairs(tokens).most_common()
+
+    pair_ratios = []
+    for pair, count in pairs:
+        adjective, noun = pair.split(' ')
+        ratio = (count * 100) // nouns[noun]
+        pair_ratios.append((pair, count*ratio, count, ratio, nouns[noun]))
+
+    pair_ratios = sorted(pair_ratios, key=lambda item: item[3], reverse=True)
+
+    for item in pair_ratios:
+        if item[3] > 50 and item[4] > 4:
+            string = "The phrase '" + item[0]
+            string += "' accounts for " + str(item[3])
+            string += '% of the ' + str(item[4])
+            string += ' uses of its noun.'
+            print(string)
